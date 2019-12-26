@@ -136,7 +136,10 @@ public class MainProcess {
             } catch (SQLException e1) {
             }
         }
+        catch (Exception e){
+            e.printStackTrace();
 
+        }
     }
 
     public static void review(Boolean a) throws IOException {
@@ -419,7 +422,6 @@ public class MainProcess {
         }
         return result;
     }
-
     public static void w() {
         s("wrong!wrong!wrong!wrong!wrong!");
     }
