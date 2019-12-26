@@ -45,20 +45,6 @@ public class MainProcess {
 
     public static void main(String[] args) throws SQLException, IOException, URISyntaxException {
 
-
-//        while(true) {
-//            s("password?");
-//            if (!"wzz".equals(sc.next())) {
-//                s("fool");
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else
-//                break;
-//        }
         stmt = con.createStatement(
                 ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);
@@ -73,35 +59,13 @@ public class MainProcess {
         }
         Integer k;
         one();
-//        while (true) {
-//            s("1?2?3?4?");
-//            try {
-//                k = Integer.parseInt(sc.next());
-//                if (k < 1 || k > 4) {
-//                    w();
-//                    continue;
-//                }
-//            } catch (Exception e) {
-//                w();
-//                continue;
-//            }
-//
-//
-//            switch (k) {
-//                case 1:
-//                    one();
-//                case 2:
-//                case 3:
-//                case 4:
-//            }
-//
-//        }
 
     }
 
     public static void one() throws IOException, URISyntaxException, SQLException {
 
         while (true) {
+            dbb();
             if (VoiceOn)
             s("1->slient mode");
             else
@@ -142,13 +106,11 @@ public class MainProcess {
     public static void dbb(){
         Runtime runtime = Runtime.getRuntime();
         File directory = new File("");
-        Process process = null;
         try {
-            process = runtime.exec("\"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe\" "+ "-uroot -ppassword dic word -r"+ directory.getAbsolutePath()+"\\word.sql");
+           runtime.exec("mysqldump "+ "-uroot -ppassword dic word -r"+  directory.getAbsolutePath()+"\\word.sql");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
     }
 
     public static void play(String url) throws IOException {
