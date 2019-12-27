@@ -22,7 +22,7 @@ public class shikotoyou {
 //                "mysqldump -uroot -ppassword dic word>C://word.sql";
         Runtime runtime = Runtime.getRuntime();
         File directory = new File("");
-        Process process = runtime.exec("\"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe\" "+ "-uroot -ppassword dic word -r"+ directory.getAbsolutePath()+"\\word.sql");
+        Process process = runtime.exec("mysqld -rrrr ");
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
         while(true){
             //读取响应信息

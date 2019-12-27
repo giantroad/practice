@@ -65,7 +65,6 @@ public class MainProcess {
     public static void one() throws IOException, URISyntaxException, SQLException {
 
         while (true) {
-            dbb();
             if (VoiceOn)
             s("1->slient mode");
             else
@@ -79,6 +78,7 @@ public class MainProcess {
             else
             s("6->jp dake");
             s("7->db backup");
+            s("8->db update");
             String w = sc.next();
             if ("1".equals(w)) VoiceOn ^= true;
             else if ("2".equals(w)) showAll();
@@ -100,6 +100,7 @@ public class MainProcess {
             }
             else if ("6".equals(w)) jpdk ^= true;
             else if ("7".equals(w)) dbb();
+            else if ("8".equals(w)) dbu();
             else t(w);
         }
     }
@@ -111,6 +112,55 @@ public class MainProcess {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void dbu(){
+//        Runtime runtime = Runtime.getRuntime();
+//        Process process = null;
+        File sqlfile = new File(new File("").getAbsolutePath()+"\\word.sql");
+        if (!sqlfile.exists()){
+            s("sql file doesn't exsit!");
+            return;
+        }
+        InputStream is = null;
+        StringBuilder buffer = new StringBuilder();
+        try {
+            is = new FileInputStream(sqlfile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line =""; // 用来保存每行读取的内容
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        try {
+        while (line != null) { // 如果 line 为空说明读完了
+            try {
+                line = reader.readLine(); // 读取下一行4
+                if (line != null && !line.startsWith("--"))
+                buffer.append(line); // 将读到的内容添加到 buffer 中
+                if (line != null && line.endsWith(";") ) {
+                    stmt.execute(buffer.toString());
+                    buffer = new StringBuilder();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                s(line);
+                buffer = new StringBuilder();
+                e.printStackTrace();
+            }
+        }
+        reader.close();
+        is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        try {
+//            process = runtime.exec("mysql "+ " -uroot -ppassword -Ddic<"+ sqlfile.getAbsolutePath() );
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     public static void play(String url) throws IOException {
@@ -149,7 +199,7 @@ public class MainProcess {
         String sql ;
 
         if (a) sql = "SELECT * FROM word  order by (miss+hit) ASC , date desc , miss desc";
-        else sql =   "SELECT * FROM word WHERE review = 0 order by (miss+hit) ASC , date desc , miss desc";
+        else sql =   "SELECT * FROM word WHERE review = 0 order by (miss+hit) desc , date desc , miss desc";
         try {
             rs = stmt.executeQuery(sql);
         } catch (SQLException e) {
@@ -177,7 +227,7 @@ public class MainProcess {
             rs.updateInt("miss", miss);
             java.sql.Date date =  new java.sql.Date(System.currentTimeMillis());
             rs.updateDate("date",date);
-            if (hit + miss > 2 && hit > miss + 1 && period >= 3) rs.updateInt("review", 1);
+            if (hit + miss > 2 && hit > miss + 1 && period >= 1) rs.updateInt("review", 1);
             try {
                 rs.updateRow();
             }catch (com.mysql.cj.jdbc.exceptions.CommunicationsException e){
