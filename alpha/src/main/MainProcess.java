@@ -186,9 +186,8 @@ public class MainProcess {
             } catch (SQLException e1) {
             }
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 
