@@ -3,6 +3,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -79,6 +80,7 @@ public class MainProcess {
             s("6->jp dake");
             s("7->db backup");
             s("8->db update");
+            s("9->novel");
             String w = sc.next();
             if ("1".equals(w)) VoiceOn ^= true;
             else if ("2".equals(w)) showAll();
@@ -101,8 +103,38 @@ public class MainProcess {
             else if ("6".equals(w)) jpdk ^= true;
             else if ("7".equals(w)) dbb();
             else if ("8".equals(w)) dbu();
+            else if ("9".equals(w)) novel();
             else t(w);
         }
+    }
+    public static void novel(){
+        try {
+            ResultSet rs = stmt.executeQuery("select meaning from dic.word where word = \"novel\"");
+            rs.next();
+            String url= rs.getString("meaning");
+            String html ="";
+            Document document = Jsoup.connect(url).maxBodySize(0).get();
+            Element right = document.getElementById("right");
+
+
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public String getHtml(String url) throws IOException {
+        HttpGet httpget = new HttpGet(url);
+        httpget.setHeader("User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36");
+        String html = "";
+        CloseableHttpResponse response = null;
+        CloseableHttpClient httpclient = HttpClients.createDefault();   // 使用默认的HttpClient
+        response = httpclient.execute(httpget);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {     // 返回 200 表示成功
+            html = EntityUtils.toString(response.getEntity(), "utf-8");     // 获取服务器响应实体的内容
+        }
+        s(html);
+        return html;
     }
     public static void dbb(){
         Runtime runtime = Runtime.getRuntime();
@@ -218,7 +250,7 @@ public class MainProcess {
             int miss = rs.getInt("miss");
             int hit = rs.getInt("hit");
             Date d = rs.getDate("date");
-            Long period = (new Date().getTime() - d.getTime()) / (24*60*60*1000);
+            //Long period = (new Date().getTime() - d.getTime()) / (24*60*60*1000);
             s(word);
             int k = ce(word);
             if (k == 1)  hit++;  else if (k == 0) break; else miss++;
@@ -226,7 +258,7 @@ public class MainProcess {
             rs.updateInt("miss", miss);
             java.sql.Date date =  new java.sql.Date(System.currentTimeMillis());
             rs.updateDate("date",date);
-            if (hit + miss > 2 && hit > miss + 1 && period >= 1) rs.updateInt("review", 1);
+            if (hit + miss > 2 && hit > miss + 1) rs.updateInt("review", 1);
             try {
                 rs.updateRow();
             }catch (com.mysql.cj.jdbc.exceptions.CommunicationsException e){

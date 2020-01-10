@@ -20,18 +20,9 @@ public class shikotoyou {
     public static void main(String[] args) throws IOException, ParseException {
 //        String command = "cd.. cd \"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\"\n" +
 //                "mysqldump -uroot -ppassword dic word>C://word.sql";
-        Runtime runtime = Runtime.getRuntime();
-        File directory = new File("");
-        Process process = runtime.exec("mysqld -rrrr ");
-        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        while(true){
-            //读取响应信息
-            String s = br.readLine();
-            if(s==null){
-                break;
-            }
-            System.out.println(s);
-        }
+        Map<String, Object> a = (Map<String, Object>)null;
+        int b = 1;
+        s(1);
 
         }
 
