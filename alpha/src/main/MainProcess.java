@@ -115,7 +115,7 @@ public class MainProcess {
             String html ="";
             Document document = Jsoup.connect(url).maxBodySize(0).get();
             Element right = document.getElementById("right");
-
+            s(right.text());
 
 
         } catch (IOException | SQLException e) {
