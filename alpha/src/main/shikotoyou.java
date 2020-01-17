@@ -20,11 +20,37 @@ public class shikotoyou {
     public static void main(String[] args) throws IOException, ParseException {
 //        String command = "cd.. cd \"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\"\n" +
 //                "mysqldump -uroot -ppassword dic word>C://word.sql";
-        Map<String, Object> a = (Map<String, Object>)null;
-        int b = 1;
-        s(1);
-
+        s(lengthOfLongestSubstring("asldisawqwscxzsdaqwinruebd"));
         }
+
+    public static int lengthOfLongestSubstring(String s) {
+        int n = s.length(), ans = 0;
+        int j;
+        int i;
+        Map<Character, Integer> map = new HashMap<>(); // current index of character
+        // try to extend the range [i, j]
+        for (j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            ans = Math.max(ans, j - i + 1);
+            map.put(s.charAt(j), j + 1);
+        }
+        s(ans);
+        j = 0;
+        ans = 0;
+        map = new HashMap<>();
+        for (i = 0; i < s.length(); i++){
+            if (map.containsKey(s.charAt(i))){
+                j = i + 1;
+            }
+            ans = Math.max(i-j+1,ans);
+            map.put(s.charAt(i),i);
+        }
+
+        s(ans);
+        return ans;
+    }
 
     private static boolean DisclosureDateErrCheck(List<Pair<String, String>> disclosureDate)  {
 
@@ -69,5 +95,74 @@ public class shikotoyou {
         public static void s(Object a){
             System.out.println(a);
         }
+        private static void fr(String url) throws IOException {
+            FileInputStream inputStream = null;
+            try {
+                inputStream = new FileInputStream(url);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
+            String str = null;
+            try {
+                bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int count = 1;
+            int sc = 1;
+            String su = "C:\\Users\\base\\Desktop\\csv\\"+count+".csv";
+            File s = new File(su);
+            if (!s.exists()){
+                try {
+                    s.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            FileWriter writer = new FileWriter(su);
+            BufferedWriter bw = new BufferedWriter(writer);
+            bw.write("\"sku_code\",\"[更新後]sales_start_timestamp\",\"[更新後]msrp\",\"Version\",\"[更新前]sales_start_timestamp\",\"[更新前]msrp\"\n");
+            while(true)
+            {
+                try {
+                    if (!((str = bufferedReader.readLine()) != null)) break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                sc++;
+                bw.write(str+"\n");
+                bw.flush();
+                if (sc % 10000 == 0){
+                    sc = 0;
+                    count++;
+                    su = "C:\\Users\\base\\Desktop\\csv\\"+count+".csv";
+                    s = new File(su);
+                    if (!s.exists()){
+                        try {
+                            s.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    writer = new FileWriter(su);
+                    bw = new BufferedWriter(writer);
+                    bw.write("\"sku_code\",\"[更新後]sales_start_timestamp\",\"[更新後]msrp\",\"Version\",\"[更新前]sales_start_timestamp\",\"[更新前]msrp\"\n");
+                }
+            }
+
+            //close
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
 }

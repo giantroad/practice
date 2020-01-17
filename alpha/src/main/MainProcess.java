@@ -81,6 +81,8 @@ public class MainProcess {
             s("7->db backup");
             s("8->db update");
             s("9->novel");
+            s("10->delete word");
+            s("11->update word");
             String w = sc.next();
             if ("1".equals(w)) VoiceOn ^= true;
             else if ("2".equals(w)) showAll();
@@ -104,8 +106,37 @@ public class MainProcess {
             else if ("7".equals(w)) dbb();
             else if ("8".equals(w)) dbu();
             else if ("9".equals(w)) novel();
+            else if ("10".equals(w)) deleteWord();
+            else if ("11".equals(w)) updateWord();
             else t(w);
         }
+    }
+
+    public static void updateWord(){
+        s("which word to update?");
+        String w = sc.next();
+        s("atarashi meaning plz");
+        String m = sc.next();
+        try {
+            stmt.execute("update dic.word  set meaning = '"+m+"' where word = '" + w + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            s("update fail");
+            return;
+        }
+        s("update " + w + " meaing : " + m  +" successfully");
+    }
+    public static void deleteWord(){
+        s("which word to del?");
+        String w = sc.next();
+        try {
+            stmt.execute("delete from dic.word where word = '" + w + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            s("delete fail");
+            return;
+        }
+        s("delete " + w + " successfully");
     }
     public static void novel(){
         try {
@@ -224,11 +255,8 @@ public class MainProcess {
     }
 
     public static void review(Boolean a) throws IOException {
-
-
         ResultSet rs = null;
         String sql ;
-
         if (a) sql = "SELECT * FROM word  order by (miss+hit) ASC , date desc , miss desc";
         else sql =   "SELECT * FROM word WHERE review = 0 order by (miss+hit) desc , date desc , miss desc";
         try {
@@ -246,6 +274,7 @@ public class MainProcess {
             String meaning = rs.getString("meaning");
             String phonetic = rs.getString("phonetic");
             String voice = rs.getString("voice_us");
+
             String example = rs.getString("example");
             int miss = rs.getInt("miss");
             int hit = rs.getInt("hit");
