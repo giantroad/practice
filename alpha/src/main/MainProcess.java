@@ -143,7 +143,6 @@ public class MainProcess {
             ResultSet rs = stmt.executeQuery("select meaning from dic.word where word = \"novel\"");
             rs.next();
             String url= rs.getString("meaning");
-            String html ="";
             Document document = Jsoup.connect(url).maxBodySize(0).get();
             Element right = document.getElementById("right");
             s(right.text());
