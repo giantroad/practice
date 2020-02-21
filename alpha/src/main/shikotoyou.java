@@ -20,7 +20,6 @@ public class shikotoyou {
     public static void main(String[] args) throws IOException, ParseException {
 //        String command = "cd.. cd \"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\"\n" +
 //                "mysqldump -uroot -ppassword dic word>C://word.sql";
-        s(lengthOfLongestSubstring("asldisawqwscxzsdaqwinruebd"));
         }
 
     public static int lengthOfLongestSubstring(String s) {
@@ -84,7 +83,6 @@ public class shikotoyou {
                 return false;
             }
         }
-
         return true;
     }
         public static String getUnix (String d) throws ParseException {
