@@ -1,0 +1,50 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/alpha/lib/websocket-common-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jetty-http-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/sqlite-jdbc-3.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpclient-cache-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/websocket-client-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/xalan-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpclient-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-net-3.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/htmlunit-2.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpclient-4.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jl1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jetty-util-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-codec-1.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/mysql-connector-java-8.0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/htmlunit-cssparser-1.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpclient-osgi-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jetty-client-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jetty-io-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jna-4.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-io-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/htmlunit-core-js-2.36.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jsoup-1.12.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/websocket-api-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jna-platform-4.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/fluent-hc-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/htmlunit-2.36.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpcore-4.4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/serializer-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpmime-4.5.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/neko-htmlunit-2.36.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/javacsv.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpmime-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-lang3-3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpclient-win-4.5.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-text-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/jetty-xml-9.4.20.v20190813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/httpcore-4.4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/xercesImpl-2.12.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/dec-0.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/alpha/lib/xml-apis-1.4.01.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

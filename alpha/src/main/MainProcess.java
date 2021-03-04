@@ -34,11 +34,18 @@ public class MainProcess {
     public static Scanner sc = new Scanner(System.in);
     public static Boolean VoiceOn = true;
     public static Boolean jpdk = false;
+    //数据库备份使用自带的mysqldump.exe在新环境可能需要更新
+    /*随新环境更新的参数*/
+    public static String dbuser = "root";
+    public static String dbpassword = "haineng";
+    public static String dbname = "haineng";
+    /*随新环境更新的参数*/
+
     public static  Connection con;
     static {
         try {
             con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/dic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true", "root", "password");
+                        "jdbc:mysql://localhost:3306/"+dbname+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true", dbuser, dbpassword);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,6 +66,7 @@ public class MainProcess {
             e.printStackTrace();
         }
         Integer k;
+        dbb();
         one();
 
     }
@@ -118,7 +126,7 @@ public class MainProcess {
         s("atarashi meaning plz");
         String m = sc.next();
         try {
-            stmt.execute("update dic.word  set meaning = '"+m+"' where word = '" + w + "';");
+            stmt.execute("update "+dbname+".word  set meaning = '"+m+"' where word = '" + w + "';");
         } catch (SQLException e) {
             e.printStackTrace();
             s("update fail");
@@ -130,7 +138,7 @@ public class MainProcess {
         s("which word to del?");
         String w = sc.next();
         try {
-            stmt.execute("delete from dic.word where word = '" + w + "';");
+            stmt.execute("delete from "+dbname+".word where word = '" + w + "';");
         } catch (SQLException e) {
             e.printStackTrace();
             s("delete fail");
@@ -140,7 +148,7 @@ public class MainProcess {
     }
     public static void novel(){
         try {
-            ResultSet rs = stmt.executeQuery("select meaning from dic.word where word = \"novel\"");
+            ResultSet rs = stmt.executeQuery("select meaning from "+dbname+".word where word = \"novel\"");
             rs.next();
             String url= rs.getString("meaning");
             Document document = Jsoup.connect(url).maxBodySize(0).get();
@@ -166,13 +174,29 @@ public class MainProcess {
         s(html);
         return html;
     }
-    public static void dbb(){
-        Runtime runtime = Runtime.getRuntime();
+    public static void dbb() {
         File directory = new File("");
+        String target = "mysqldump -u"+dbuser+" -p"+dbpassword+" "+dbname+" word -r"+  directory.getAbsolutePath()+"\\word.sql";
         try {
-           runtime.exec("mysqldump "+ "-uroot -ppassword dic word -r"+  directory.getAbsolutePath()+"\\word.sql");
+            Process process = Runtime.getRuntime().exec(target);
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is, "GBK");
+            BufferedReader br = new BufferedReader(isr);
+            String content = br.readLine();
+            while (content != null) {
+                System.out.println(content);
+                content = br.readLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
+
+//        File directory = new File("");
+//        String target = "mysqldump "+ "-u"+dbuser+" -p"+dbpassword+" "+dbname+" word -r"+  directory.getAbsolutePath()+"\\word.sql";
+//        try {
+//            Process p = Runtime.getRuntime().exec("cmd.exe C: & "+"cd "+dump+" & "+target);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         }
     }
 
@@ -549,7 +573,7 @@ public class MainProcess {
         } catch (SQLException e) {
             try {
                 con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/dic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true", "root", "password");
+                        "jdbc:mysql://localhost:3306/"+dbname+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=UTF-8&autoReconnect=true", dbuser, dbpassword);
                 stmt2 = con.createStatement(
                         ResultSet.TYPE_SCROLL_SENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
