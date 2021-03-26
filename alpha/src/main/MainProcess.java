@@ -32,7 +32,7 @@ public class MainProcess {
     public static Statement stmt;
     public static Statement stmt2;
     public static Scanner sc = new Scanner(System.in);
-    public static Boolean VoiceOn = true;
+    public static Boolean VoiceOn = false;
     public static Boolean jpdk = false;
     //数据库备份使用自带的mysqldump.exe在新环境可能需要更新
     /*随新环境更新的参数*/
