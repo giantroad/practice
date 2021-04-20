@@ -60,11 +60,11 @@ public class MainProcess {
                 ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);
         sc.useDelimiter("\n");
-        try {
-            fresh();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            fresh();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         Integer k;
         dbb();
         one();
@@ -281,7 +281,7 @@ public class MainProcess {
         ResultSet rs = null;
         String sql ;
         if (a) sql = "SELECT * FROM word  order by (miss+hit) ASC , date desc , miss desc";
-        else sql =   "SELECT * FROM word WHERE review = 0 order by (miss+hit) desc , date desc , miss desc";
+        else sql =   "SELECT * FROM word WHERE review = 0 order by date desc ,(miss+hit) desc ,  miss desc";
         try {
             rs = stmt.executeQuery(sql);
         } catch (SQLException e) {
@@ -308,8 +308,8 @@ public class MainProcess {
             if (k == 1)  hit++;  else if (k == 0) break; else miss++;
             rs.updateInt("hit", hit);
             rs.updateInt("miss", miss);
-            java.sql.Date date =  new java.sql.Date(System.currentTimeMillis());
-            rs.updateDate("date",date);
+//            java.sql.Date date =  new java.sql.Date(System.currentTimeMillis());
+//            rs.updateDate("date",date);
             if (hit + miss > 2 && hit > miss + 1) rs.updateInt("review", 1);
             try {
                 rs.updateRow();
@@ -414,7 +414,7 @@ public class MainProcess {
 
     public static String ten(String q) throws IOException {
         Document document = Jsoup.connect("https://dictionary.cambridge.org/ja/dictionary/english-chinese-simplified/"+q).get();
-        Elements meaings = document.getElementsByClass("trans dtrans dtrans-se ");
+        Elements meaings = document.getElementsByClass("trans dtrans dtrans-se  break-cj");
         Elements uk = document.getElementsByClass("uk dpron-i ");
         Elements us = document.getElementsByClass("us dpron-i ");
         String m  = "";
